@@ -90,8 +90,6 @@ commands:
           command: |
             source VERSION
 
-            cd ./build
-            
             docker build -t globalgames/$CIRCLE_PROJECT_REPONAME:$DOCKER_VERSION .
             docker tag globalgames/$CIRCLE_PROJECT_REPONAME:$DOCKER_VERSION globalgames/$CIRCLE_PROJECT_REPONAME:$DOCKER_SHORT_VERSION 
             docker tag globalgames/$CIRCLE_PROJECT_REPONAME:$DOCKER_VERSION globalgames/$CIRCLE_PROJECT_REPONAME:$DOCKER_FULL_VERSION
@@ -114,6 +112,7 @@ jobs:
     working_directory: *workspace_root
     steps:
       - *attach_workspace
+      - checkout
       - setup_remote_docker
       - set_version
       - docker_login
