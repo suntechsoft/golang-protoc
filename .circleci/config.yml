@@ -7,6 +7,7 @@ executors:
         auth:
           username: $DOCKER_USER
           password: $DOCKER_PASS
+    working_directory: /go/src/github.com/suntechsoft/golang-protoc
 
 commands:
   set_version:
@@ -89,21 +90,28 @@ commands:
           command: |
             source VERSION
             
-            cd ./
-
             docker build -t globalgames/$CIRCLE_PROJECT_REPONAME:$DOCKER_VERSION .
             docker tag globalgames/$CIRCLE_PROJECT_REPONAME:$DOCKER_VERSION globalgames/$CIRCLE_PROJECT_REPONAME:$DOCKER_SHORT_VERSION 
             docker tag globalgames/$CIRCLE_PROJECT_REPONAME:$DOCKER_VERSION globalgames/$CIRCLE_PROJECT_REPONAME:$DOCKER_FULL_VERSION
             docker push globalgames/$CIRCLE_PROJECT_REPONAME:$DOCKER_VERSION
             docker push globalgames/$CIRCLE_PROJECT_REPONAME:$DOCKER_SHORT_VERSION
             docker push globalgames/$CIRCLE_PROJECT_REPONAME:$DOCKER_FULL_VERSION
+            
+references:
+  workspace_root: &workspace_root
+    /go/src/github.com/suntechsoft/golang-protoc
 
+  attach_workspace: &attach_workspace
+    attach_workspace:
+      at: *workspace_root
 
 jobs:
   build_images:
     docker:
       - image: docker:git
+    working_directory: *workspace_root
     steps:
+      - *attach_workspace
       - setup_remote_docker
       - set_version
       - docker_login
