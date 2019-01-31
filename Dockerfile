@@ -1,6 +1,6 @@
 FROM golang:1.11-alpine as protoc_builder
 RUN apk add --no-cache build-base curl automake autoconf libtool git zlib-dev
-ARG GITHUB_TOKEN
+# ARG GITHUB_TOKEN
 ENV GRPC_VERSION=1.16.0 \
         PROTOBUF_VERSION=3.6.1 \
         PROTOC_GEN_DOC_VERSION=1.1.0 \
@@ -20,7 +20,7 @@ RUN cd /grpc && \
         make install-plugins prefix=${OUTDIR}/usr
 RUN find ${OUTDIR} -name "*.a" -delete -or -name "*.la" -delete
 
-# RUN git config --global url."https://$GITHUB_TOKEN@github.com/".insteadOf "https://github.com/"
+RUN git config --global url."https://$GITHUB_TOKEN@github.com/".insteadOf "https://github.com/"
 RUN go get -u -v -ldflags '-w -s' \
         github.com/Masterminds/glide \
         # github.com/golang/protobuf/protoc-gen-go@v1.2.0 \
