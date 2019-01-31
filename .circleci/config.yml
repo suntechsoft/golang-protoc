@@ -89,9 +89,8 @@ commands:
           name: Build and Push Image
           command: |
             source VERSION
-            git config --global url."https://${GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
 
-            docker build -t globalgames/$CIRCLE_PROJECT_REPONAME:$DOCKER_VERSION .
+            docker build --build-arg GITHUB_TOKEN -t globalgames/$CIRCLE_PROJECT_REPONAME:$DOCKER_VERSION .
             docker tag globalgames/$CIRCLE_PROJECT_REPONAME:$DOCKER_VERSION globalgames/$CIRCLE_PROJECT_REPONAME:$DOCKER_SHORT_VERSION 
             docker tag globalgames/$CIRCLE_PROJECT_REPONAME:$DOCKER_VERSION globalgames/$CIRCLE_PROJECT_REPONAME:$DOCKER_FULL_VERSION
             docker push globalgames/$CIRCLE_PROJECT_REPONAME:$DOCKER_VERSION
