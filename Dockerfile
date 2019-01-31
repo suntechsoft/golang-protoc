@@ -20,8 +20,8 @@ RUN cd /grpc && \
         make install-plugins prefix=${OUTDIR}/usr
 RUN find ${OUTDIR} -name "*.a" -delete -or -name "*.la" -delete
 
-RUN git config --global url."https://$GITHUB_TOKEN@github.com/".insteadOf "https://github.com/"
-RUN go get -u -v -ldflags '-w -s' \
+RUN git config --global url."https://$GITHUB_TOKEN@github.com/".insteadOf "https://github.com/" && \
+        go get -u -v -ldflags '-w -s' \
         github.com/Masterminds/glide \
         # github.com/golang/protobuf/protoc-gen-go@v1.2.0 \
         github.com/golang/protobuf/protoc-gen-go \
@@ -46,7 +46,8 @@ RUN go get -u -v -ldflags '-w -s' \
         github.com/golang/mock/mockgen \
         && cd ${GOPATH}/src/github.com/golang/protobuf/protoc-gen-go && git checkout tags/v1.2.0 && go install . \
         && install -c ${GOPATH}/bin/protoc-gen* ${OUTDIR}/usr/bin/
-RUN go get github.com/suntechsoft/dmarket-go-tools/proto-importer \
+RUN git config --global url."https://$GITHUB_TOKEN@github.com/".insteadOf "https://github.com/" && \
+        go get github.com/suntechsoft/dmarket-go-tools/proto-importer \
         && install -c ${GOPATH}/bin/proto-importer ${OUTDIR}/usr/bin/
 
 RUN mkdir -p ${GOPATH}/src/github.com/pseudomuto/protoc-gen-doc && \
