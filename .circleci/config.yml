@@ -89,6 +89,8 @@ commands:
           command: |
             source VERSION
             
+            cd ./
+
             docker build -t globalgames/$CIRCLE_PROJECT_REPONAME:$DOCKER_VERSION .
             docker tag globalgames/$CIRCLE_PROJECT_REPONAME:$DOCKER_VERSION globalgames/$CIRCLE_PROJECT_REPONAME:$DOCKER_SHORT_VERSION 
             docker tag globalgames/$CIRCLE_PROJECT_REPONAME:$DOCKER_VERSION globalgames/$CIRCLE_PROJECT_REPONAME:$DOCKER_FULL_VERSION
