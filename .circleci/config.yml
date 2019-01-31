@@ -89,6 +89,8 @@ commands:
           name: Build and Push Image
           command: |
             source VERSION
+
+            cd ./build
             
             docker build -t globalgames/$CIRCLE_PROJECT_REPONAME:$DOCKER_VERSION .
             docker tag globalgames/$CIRCLE_PROJECT_REPONAME:$DOCKER_VERSION globalgames/$CIRCLE_PROJECT_REPONAME:$DOCKER_SHORT_VERSION 
