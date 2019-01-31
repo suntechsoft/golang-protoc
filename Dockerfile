@@ -20,7 +20,7 @@ RUN cd /grpc && \
         make install-plugins prefix=${OUTDIR}/usr
 RUN find ${OUTDIR} -name "*.a" -delete -or -name "*.la" -delete
 
-RUN git config --global url."https://$GITHUB_TOKEN@github.com/".insteadOf "https://github.com/"
+# RUN git config --global url."https://$GITHUB_TOKEN@github.com/".insteadOf "https://github.com/"
 RUN go get -u -v -ldflags '-w -s' \
         github.com/Masterminds/glide \
         # github.com/golang/protobuf/protoc-gen-go@v1.2.0 \
