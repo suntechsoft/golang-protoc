@@ -7,7 +7,7 @@ executors:
         auth:
           username: $DOCKER_USER
           password: $DOCKER_PASS
-    working_directory: /
+    working_directory: /go/src/github.com/suntechsoft/golang-protoc
 
 commands:
   set_version:
@@ -99,7 +99,7 @@ commands:
 
 references:
   workspace_root: &workspace_root
-    /
+    /go/src/github.com/suntechsoft/golang-protoc
 
   attach_workspace: &attach_workspace
     attach_workspace:
