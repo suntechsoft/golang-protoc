@@ -91,11 +91,15 @@ commands:
             source VERSION
 
             docker build --build-arg GITHUB_TOKEN -t globalgames/$CIRCLE_PROJECT_REPONAME:$DOCKER_VERSION .
-            docker tag globalgames/$CIRCLE_PROJECT_REPONAME:$DOCKER_VERSION globalgames/$CIRCLE_PROJECT_REPONAME:$DOCKER_SHORT_VERSION 
+
+            # docker tag globalgames/$CIRCLE_PROJECT_REPONAME:$DOCKER_VERSION globalgames/$CIRCLE_PROJECT_REPONAME:$DOCKER_SHORT_VERSION 
             docker tag globalgames/$CIRCLE_PROJECT_REPONAME:$DOCKER_VERSION globalgames/$CIRCLE_PROJECT_REPONAME:$DOCKER_FULL_VERSION
-            docker push globalgames/$CIRCLE_PROJECT_REPONAME:$DOCKER_VERSION
-            docker push globalgames/$CIRCLE_PROJECT_REPONAME:$DOCKER_SHORT_VERSION
+            docker tag globalgames/$CIRCLE_PROJECT_REPONAME:$DOCKER_VERSION globalgames/$CIRCLE_PROJECT_REPONAME:latest
+            
+            # docker push globalgames/$CIRCLE_PROJECT_REPONAME:$DOCKER_VERSION
+            # docker push globalgames/$CIRCLE_PROJECT_REPONAME:$DOCKER_SHORT_VERSION
             docker push globalgames/$CIRCLE_PROJECT_REPONAME:$DOCKER_FULL_VERSION
+            docker push globalgames/$CIRCLE_PROJECT_REPONAME:latest
 
 references:
   workspace_root: &workspace_root
